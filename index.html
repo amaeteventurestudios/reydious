@@ -1,392 +1,384 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Reydious | Execution Governance Platform</title>
+  <title>Reydious — Execution Governance Platform</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg-outer: #040508;
-      --bg-base: #08090c;
-      --surface: #0d0f14;
-      --card: #131620;
-      --card-hover: #191d2b;
-      --border: rgba(255, 255, 255, 0.07);
-      --border-bright: rgba(255, 255, 255, 0.13);
-      --accent: #e8611a;
-      --accent-glow: rgba(232, 97, 26, 0.35);
-      --accent-alt: #f08040;
-      --text-primary: #f0f2f5;
-      --text-secondary: #8b909e;
-      --text-muted: #484e60;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: var(--bg-outer);
-      color: var(--text-primary);
-      line-height: 1.6;
-      text-align: center;
-    }
-
-    .site-shell {
-      background: radial-gradient(circle at top, rgba(232, 97, 26, 0.09), transparent 38%), var(--bg-base);
-      min-height: 100vh;
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 40px;
-    }
-
-    section {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 48px 32px;
-      margin-bottom: 28px;
-    }
-
-    h1, h2, h3 {
-      font-family: 'Space Grotesk', sans-serif;
-      margin: 0 0 16px;
-      line-height: 1.2;
-      letter-spacing: 0.01em;
-    }
-
-    h1 {
-      font-size: clamp(2.2rem, 5vw, 3.6rem);
-    }
-
-    h2 {
-      font-size: clamp(1.65rem, 3.2vw, 2.25rem);
-      margin-bottom: 12px;
-    }
-
-    h3 {
-      font-size: 1.15rem;
-      margin-bottom: 10px;
-    }
-
-    p {
-      margin: 0 auto 12px;
-      max-width: 760px;
-      color: var(--text-secondary);
-    }
-
-    .hero-tag {
-      display: inline-block;
-      margin-bottom: 18px;
-      color: var(--accent-alt);
-      border: 1px solid var(--border-bright);
-      border-radius: 999px;
-      padding: 7px 15px;
-      background: rgba(255, 255, 255, 0.02);
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-
-    .hero-sub {
-      color: var(--text-primary);
-      font-size: clamp(1.1rem, 2vw, 1.35rem);
-      margin-bottom: 18px;
-      font-weight: 600;
-    }
-
-    .button-row {
-      display: flex;
-      justify-content: center;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-top: 28px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      border-radius: 10px;
-      padding: 12px 24px;
-      font-weight: 600;
-      border: 1px solid transparent;
-      transition: all 0.2s ease;
-      min-width: 160px;
-    }
-
-    .btn-primary {
-      color: #fff;
-      background: linear-gradient(135deg, var(--accent), var(--accent-alt));
-      box-shadow: 0 0 0 0 var(--accent-glow), 0 12px 30px rgba(0, 0, 0, 0.3);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 0 0 6px var(--accent-glow), 0 12px 30px rgba(0, 0, 0, 0.3);
-    }
-
-    .btn-secondary {
-      color: var(--text-primary);
-      border-color: var(--border-bright);
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    .btn-secondary:hover {
-      border-color: var(--accent-alt);
-      color: var(--accent-alt);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 16px;
-      margin-top: 24px;
-    }
-
-    .card, .step {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 22px 18px;
-      text-align: center;
-      transition: background 0.2s ease, border-color 0.2s ease;
-    }
-
-    .card:hover, .step:hover {
-      background: var(--card-hover);
-      border-color: var(--border-bright);
-    }
-
-    .icon {
-      width: 46px;
-      height: 46px;
-      margin: 0 auto 12px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      font-size: 1.28rem;
-      color: var(--accent-alt);
-      border: 1px solid var(--border-bright);
-      background: rgba(232, 97, 26, 0.08);
-    }
-
-    .step-number {
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700;
-      font-size: 1.25rem;
-      color: var(--accent-alt);
-      margin-bottom: 8px;
-    }
-
-    .demo-line {
-      margin-top: 18px;
-      color: var(--text-primary);
-      font-weight: 700;
-      letter-spacing: 0.02em;
-    }
-
-    .closing p {
-      color: var(--text-primary);
-      font-size: 1.08rem;
-      max-width: 720px;
-    }
-
-    footer {
-      margin-top: 6px;
-      padding: 26px 0 10px;
-      color: var(--text-secondary);
-      border-top: 1px solid var(--border);
-    }
-
-    footer .brand {
-      color: var(--text-primary);
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.1rem;
-      margin-bottom: 6px;
-    }
-
-    footer .subtitle {
-      color: var(--text-muted);
-      margin-bottom: 8px;
-      font-size: 0.95rem;
-    }
-
-    @media (max-width: 768px) {
-      .container {
-        padding: 20px;
-      }
-
-      section {
-        padding: 34px 20px;
-      }
-
-      .btn {
-        width: 100%;
-        max-width: 280px;
-      }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <div class="site-shell">
-    <main class="container">
-      <section>
-        <div class="hero-tag">Execution Governance Platform</div>
-        <h1>Reydious</h1>
-        <p class="hero-sub">Governance Layer for Autonomous Systems</p>
-        <p>Reydious sits between human operators and autonomous machines.</p>
-        <p>Before a command executes, Reydious validates authority, checks policy rules, and records the decision path.</p>
-        <p>This creates <strong>controlled and auditable autonomy</strong> in environments where mistakes are expensive or dangerous.</p>
-        <div class="button-row">
-          <a class="btn btn-primary" href="#">Request Access</a>
-          <a class="btn btn-secondary" href="#">Contact</a>
+
+<div class="page-box">
+
+  <!-- ─── NAVBAR ─── -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">Reydious</a>
+      <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#problem">Problem</a></li>
+        <li><a href="#solution">Solution</a></li>
+        <li><a href="#platform">Platform</a></li>
+        <li><a href="#architecture">Architecture</a></li>
+        <li><a href="#applications">Applications</a></li>
+        <li><a href="#demo">Demo</a></li>
+        <li><a href="#contact" class="nav-cta">Request Access</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ─── HERO ─── -->
+  <section class="hero" id="hero">
+    <div class="hero-grid-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        <span>Execution Governance Platform</span>
+      </div>
+      <h1 class="hero-title">Reydious</h1>
+      <p class="hero-sub">Governance Layer for Autonomous Systems</p>
+      <p class="hero-desc">
+        Reydious sits between human operators and autonomous machines.<br />
+        Before a command executes, Reydious validates authority, checks policy rules, and records the decision path.<br />
+        This creates controlled and auditable autonomy in environments where mistakes are expensive or dangerous.
+      </p>
+      <div class="hero-buttons">
+        <a href="#contact" class="btn btn-primary">Request Access</a>
+        <a href="#contact" class="btn btn-secondary">Contact</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="pipeline">
+        <div class="pipeline-node node-operator">
+          <i class="fa-solid fa-user-shield"></i>
+          <span>Operator</span>
         </div>
-      </section>
-
-      <section>
-        <h2>The Problem</h2>
-        <p>As autonomous systems enter real-world operations, organizations lose visibility and control over what machines are allowed to do.</p>
-        <p>Commands can execute without clear authority validation.</p>
-        <p>Unsafe actions may only be detected after damage occurs.</p>
-        <p>Most systems provide monitoring but not real governance.</p>
-        <p>This creates operational risk in defense systems, infrastructure, robotics, and industrial automation.</p>
-      </section>
-
-      <section>
-        <h2>The Solution</h2>
-        <p>Reydious places a <strong>governance layer directly in the command path</strong>.</p>
-        <p>Every command is validated before execution.</p>
-        <p>Policy rules enforce operational limits.</p>
-        <p>Unsafe commands are blocked automatically.</p>
-        <p>Every decision is recorded.</p>
-        <p>This creates autonomy that organizations can <strong>trust, audit, and deploy safely</strong>.</p>
-      </section>
-
-      <section>
-        <h2>Governance Embedded at Runtime</h2>
-        <p>Reydious powers software-defined hardware and mission-critical systems by embedding governance directly into the execution layer.</p>
-        <p>Instead of auditing behavior after failure, Reydious prevents unsafe actions before they occur.</p>
-        <p>It integrates with hardware platforms, industrial systems, and autonomous machines.</p>
-      </section>
-
-      <section>
-        <h2>Core Capabilities</h2>
-        <div class="grid">
-          <article class="card">
-            <div class="icon">🛡️</div>
-            <h3>Rule Enforcement</h3>
-            <p>Ensures all actions remain within defined operational and safety limits.</p>
-          </article>
-          <article class="card">
-            <div class="icon">📡</div>
-            <h3>Real-Time Monitoring</h3>
-            <p>Observes system behavior continuously and blocks unsafe commands before execution.</p>
-          </article>
-          <article class="card">
-            <div class="icon">🔌</div>
-            <h3>Integration Ready</h3>
-            <p>Connects with hardware systems, software platforms, and external networks.</p>
-          </article>
+        <div class="pipeline-arrow">
+          <div class="arrow-line"><div class="arrow-pulse"></div></div>
+          <i class="fa-solid fa-chevron-right"></i>
         </div>
-      </section>
-
-      <section>
-        <h2>Three Pillars of Governed Execution</h2>
-        <div class="grid">
-          <article class="card">
-            <div class="icon">✅</div>
-            <h3>Authority Enforcement</h3>
-            <p>Every command is validated against a defined authority model.</p>
-          </article>
-          <article class="card">
-            <div class="icon">👁️</div>
-            <h3>Behavior Monitoring</h3>
-            <p>Continuous runtime observation of system state and anomaly detection.</p>
-          </article>
-          <article class="card">
-            <div class="icon">🧾</div>
-            <h3>Audit Traceability</h3>
-            <p>Every decision and rule trigger is recorded.</p>
-          </article>
+        <div class="pipeline-node node-reydious">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>Reydious</span>
+          <span class="node-tag">Governance</span>
         </div>
-      </section>
+        <div class="pipeline-arrow">
+          <div class="arrow-line"><div class="arrow-pulse"></div></div>
+          <i class="fa-solid fa-chevron-right"></i>
+        </div>
+        <div class="pipeline-node node-machine">
+          <i class="fa-solid fa-robot"></i>
+          <span>System</span>
+        </div>
+      </div>
+      <div class="pipeline-status">
+        <div class="status-item status-validated">
+          <i class="fa-solid fa-circle-check"></i> Authority Validated
+        </div>
+        <div class="status-item status-policy">
+          <i class="fa-solid fa-circle-check"></i> Policy Checked
+        </div>
+        <div class="status-item status-recorded">
+          <i class="fa-solid fa-circle-check"></i> Decision Recorded
+        </div>
+      </div>
+    </div>
+  </section>
 
-      <section>
-        <h2>Governance at Every Layer</h2>
-        <div class="grid">
-          <article class="step">
+  <!-- ─── PROBLEM ─── -->
+  <section class="section section-dark" id="problem">
+    <div class="container">
+      <div class="section-label">
+        <span class="label-line"></span>
+        <span>The Problem</span>
+        <span class="label-line"></span>
+      </div>
+      <h2 class="section-title">The Problem</h2>
+      <p class="section-lead">
+        As autonomous systems enter real-world operations, organizations lose visibility and control over what machines are allowed to do.
+      </p>
+      <div class="problem-list">
+        <div class="problem-item">
+          <div class="problem-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+          <p>Commands can execute without clear authority validation.</p>
+        </div>
+        <div class="problem-item">
+          <div class="problem-icon"><i class="fa-solid fa-bomb"></i></div>
+          <p>Unsafe actions may only be detected after damage occurs.</p>
+        </div>
+        <div class="problem-item">
+          <div class="problem-icon"><i class="fa-solid fa-eye-slash"></i></div>
+          <p>Most systems provide monitoring but not real governance.</p>
+        </div>
+      </div>
+      <p class="section-footer-text">
+        This creates operational risk in defense systems, infrastructure, robotics, and industrial automation.
+      </p>
+    </div>
+  </section>
+
+  <!-- ─── SOLUTION ─── -->
+  <section class="section section-light" id="solution">
+    <div class="container">
+      <div class="section-label">
+        <span class="label-line"></span>
+        <span>The Solution</span>
+        <span class="label-line"></span>
+      </div>
+      <h2 class="section-title">The Solution</h2>
+      <p class="section-lead">
+        Reydious places a governance layer directly in the command path.
+      </p>
+      <p class="section-sub-lead">Every command is validated before execution.</p>
+      <div class="solution-grid">
+        <div class="solution-card">
+          <div class="solution-icon"><i class="fa-solid fa-shield-halved"></i></div>
+          <h3>Policy Enforcement</h3>
+          <p>Policy rules enforce operational limits.</p>
+        </div>
+        <div class="solution-card">
+          <div class="solution-icon"><i class="fa-solid fa-ban"></i></div>
+          <h3>Automatic Blocking</h3>
+          <p>Unsafe commands are blocked automatically.</p>
+        </div>
+        <div class="solution-card">
+          <div class="solution-icon"><i class="fa-solid fa-file-lines"></i></div>
+          <h3>Full Traceability</h3>
+          <p>Every decision is recorded.</p>
+        </div>
+      </div>
+      <p class="section-footer-text">
+        This creates autonomy that organizations can trust, audit, and deploy safely.
+      </p>
+    </div>
+  </section>
+
+  <!-- ─── PLATFORM ─── -->
+  <section class="section section-dark" id="platform">
+    <div class="container">
+      <div class="section-label">
+        <span class="label-line"></span>
+        <span>Platform</span>
+        <span class="label-line"></span>
+      </div>
+      <h2 class="section-title">Governance Embedded at Runtime</h2>
+      <p class="section-lead">
+        Reydious powers software-defined hardware and mission-critical systems by embedding governance directly into the execution layer.
+      </p>
+      <p class="section-desc">
+        Instead of auditing behavior after failure, Reydious prevents unsafe actions before they occur.<br />
+        It integrates with hardware platforms, industrial systems, and autonomous machines.
+      </p>
+      <h3 class="capabilities-title">Core Capabilities</h3>
+      <div class="cards-grid cards-3">
+        <div class="card card-centered">
+          <div class="card-icon"><i class="fa-solid fa-gavel"></i></div>
+          <h4>Rule Enforcement</h4>
+          <p>Ensures all actions remain within defined operational and safety limits.</p>
+        </div>
+        <div class="card card-centered">
+          <div class="card-icon"><i class="fa-solid fa-satellite-dish"></i></div>
+          <h4>Real-Time Monitoring</h4>
+          <p>Observes system behavior continuously and blocks unsafe commands before execution.</p>
+        </div>
+        <div class="card card-centered">
+          <div class="card-icon"><i class="fa-solid fa-plug-circle-check"></i></div>
+          <h4>Integration Ready</h4>
+          <p>Connects with hardware systems, software platforms, and external networks.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── ARCHITECTURE ─── -->
+  <section class="section section-light" id="architecture">
+    <div class="container">
+      <div class="section-label">
+        <span class="label-line"></span>
+        <span>Architecture</span>
+        <span class="label-line"></span>
+      </div>
+      <h2 class="section-title">Three Pillars of Governed Execution</h2>
+      <div class="cards-grid cards-3">
+        <div class="card card-pillar">
+          <div class="pillar-number">01</div>
+          <div class="card-icon"><i class="fa-solid fa-user-check"></i></div>
+          <h4>Authority Enforcement</h4>
+          <p>Every command is validated against a defined authority model.</p>
+        </div>
+        <div class="card card-pillar">
+          <div class="pillar-number">02</div>
+          <div class="card-icon"><i class="fa-solid fa-waveform-lines"></i></div>
+          <h4>Behavior Monitoring</h4>
+          <p>Continuous runtime observation of system state and anomaly detection.</p>
+        </div>
+        <div class="card card-pillar">
+          <div class="pillar-number">03</div>
+          <div class="card-icon"><i class="fa-solid fa-database"></i></div>
+          <h4>Audit Traceability</h4>
+          <p>Every decision and rule trigger is recorded.</p>
+        </div>
+      </div>
+
+      <!-- HOW IT WORKS -->
+      <div class="how-it-works" id="how-it-works">
+        <h3 class="section-title">Governance at Every Layer</h3>
+        <div class="steps">
+          <div class="step">
             <div class="step-number">1</div>
-            <p>Define authority rules specifying what systems are allowed to do.</p>
-          </article>
-          <article class="step">
+            <div class="step-connector"></div>
+            <p class="step-text">Define authority rules specifying what systems are allowed to do.</p>
+          </div>
+          <div class="step">
             <div class="step-number">2</div>
-            <p>Deploy Reydious between commands and system actuation.</p>
-          </article>
-          <article class="step">
+            <div class="step-connector"></div>
+            <p class="step-text">Deploy Reydious between commands and system actuation.</p>
+          </div>
+          <div class="step">
             <div class="step-number">3</div>
-            <p>Validate commands against policy rules in real time.</p>
-          </article>
-          <article class="step">
+            <div class="step-connector"></div>
+            <p class="step-text">Validate commands against policy rules in real time.</p>
+          </div>
+          <div class="step">
             <div class="step-number">4</div>
-            <p>Record every decision in an immutable audit log.</p>
-          </article>
+            <p class="step-text">Record every decision in an immutable audit log.</p>
+          </div>
         </div>
-      </section>
+      </div>
+    </div>
+  </section>
 
-      <section>
-        <h2>Built for High-Consequence Environments</h2>
-        <div class="grid">
-          <article class="card">
-            <div class="icon">🛰️</div>
-            <h3>Defense Systems</h3>
-            <p>Apply strict command governance to mission-critical defense operations.</p>
-          </article>
-          <article class="card">
-            <div class="icon">🏗️</div>
-            <h3>Civil Infrastructure</h3>
-            <p>Safeguard power, transportation, and utilities with policy-validated execution.</p>
-          </article>
-          <article class="card">
-            <div class="icon">⚙️</div>
-            <h3>Industrial Automation</h3>
-            <p>Control plant and process systems with enforceable operational boundaries.</p>
-          </article>
-          <article class="card">
-            <div class="icon">🤖</div>
-            <h3>Autonomous Robotics</h3>
-            <p>Enable robots to execute only approved behaviors under real-time oversight.</p>
-          </article>
+  <!-- ─── APPLICATIONS ─── -->
+  <section class="section section-dark" id="applications">
+    <div class="container">
+      <div class="section-label">
+        <span class="label-line"></span>
+        <span>Applications</span>
+        <span class="label-line"></span>
+      </div>
+      <h2 class="section-title">Built for High-Consequence Environments</h2>
+      <div class="cards-grid cards-4">
+        <div class="card card-app">
+          <div class="card-icon"><i class="fa-solid fa-jet-fighter"></i></div>
+          <h4>Defense Systems</h4>
+          <p>Command validation and authority enforcement in autonomous defense operations where unauthorized or erroneous actions carry the highest stakes.</p>
         </div>
-      </section>
+        <div class="card card-app">
+          <div class="card-icon"><i class="fa-solid fa-city"></i></div>
+          <h4>Civil Infrastructure</h4>
+          <p>Governed automation for power grids, water systems, and transport networks where failures cascade into public safety risks.</p>
+        </div>
+        <div class="card card-app">
+          <div class="card-icon"><i class="fa-solid fa-industry"></i></div>
+          <h4>Industrial Automation</h4>
+          <p>Policy-enforced control layers for manufacturing, logistics, and process environments operating at scale and speed.</p>
+        </div>
+        <div class="card card-app">
+          <div class="card-icon"><i class="fa-solid fa-robot"></i></div>
+          <h4>Autonomous Robotics</h4>
+          <p>Real-time governance for robotic systems operating in unstructured environments where human oversight is limited.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      <section>
-        <h2>Reydious Autonomy Lab</h2>
-        <p>Reydious Autonomy Lab demonstrates governed autonomy in practice.</p>
-        <p>Operators issue commands to autonomous robots while the governance pipeline validates and approves or blocks actions before execution.</p>
-        <p class="demo-line">Demo coming soon</p>
-      </section>
+  <!-- ─── DEMO ─── -->
+  <section class="section section-light" id="demo">
+    <div class="container container-narrow">
+      <div class="section-label">
+        <span class="label-line"></span>
+        <span>Demo</span>
+        <span class="label-line"></span>
+      </div>
+      <h2 class="section-title">Reydious Autonomy Lab</h2>
+      <p class="section-lead">
+        Reydious Autonomy Lab demonstrates governed autonomy in practice.
+      </p>
+      <p class="section-desc">
+        Operators issue commands to autonomous robots while the governance pipeline validates and approves or blocks actions before execution.
+      </p>
+      <div class="demo-coming-soon">
+        <div class="demo-pulse-ring"></div>
+        <div class="demo-inner">
+          <i class="fa-solid fa-flask-vial"></i>
+          <span>Demo coming soon</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      <section class="closing">
-        <p>Mission-critical autonomy requires governance.</p>
-        <p>Reydious provides organizations with <strong>controlled and auditable execution of autonomous systems</strong>.</p>
-      </section>
+  <!-- ─── CLOSING ─── -->
+  <section class="section section-closing" id="closing">
+    <div class="container container-narrow closing-content">
+      <p class="closing-lead">Mission-critical autonomy requires governance.</p>
+      <p class="closing-desc">
+        Reydious provides organizations with controlled and auditable execution of autonomous systems.
+      </p>
+      <div class="hero-buttons">
+        <a href="#contact" class="btn btn-primary">Request Access</a>
+        <a href="#contact" class="btn btn-secondary-light">Contact</a>
+      </div>
+    </div>
+  </section>
 
-      <footer>
-        <div class="brand">Reydious</div>
-        <div class="subtitle">Execution Governance Platform</div>
-        <div>&copy; <span id="year"></span> Reydious. All rights reserved.</div>
-      </footer>
-    </main>
-  </div>
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+  <!-- ─── CONTACT ─── -->
+  <section class="section section-dark" id="contact">
+    <div class="container container-narrow">
+      <div class="section-label">
+        <span class="label-line"></span>
+        <span>Contact</span>
+        <span class="label-line"></span>
+      </div>
+      <h2 class="section-title">Get in Touch</h2>
+      <p class="section-lead">Interested in Reydious? Request access or reach out to our team.</p>
+      <form class="contact-form" id="contactForm" action="https://formspree.io/f/xeelnkqj" method="POST">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required />
+          </div>
+          <div class="form-group">
+            <label for="org">Organization</label>
+            <input type="text" id="org" name="org" placeholder="Your organization" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="you@organization.com" required />
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="4" placeholder="Tell us about your use case..."></textarea>
+        </div>
+        <div class="form-submit">
+          <button type="submit" class="btn btn-primary">Send Message</button>
+        </div>
+        <div class="form-success" id="formSuccess">
+          <i class="fa-solid fa-circle-check"></i> Message sent. We'll be in touch.
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">Reydious</span>
+        <span class="footer-tagline">Execution Governance Platform</span>
+      </div>
+      <p class="footer-copy">&copy; <span id="year"></span> Reydious. All rights reserved.</p>
+    </div>
+  </footer>
+
+</div><!-- /.page-box -->
+
+  <script src="js/main.js"></script>
 </body>
 </html>
