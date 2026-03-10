@@ -157,9 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  /* ── 6. Footer — dynamic year ────────────────────────── */
-  const yearEl = document.getElementById('year');
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+  /* ── 6. Footer year — static, no dynamic year needed ── */
 
 
   /* ── 7. Pipeline node hover interaction ──────────────── */
